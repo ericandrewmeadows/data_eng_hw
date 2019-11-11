@@ -1,0 +1,6 @@
+.cache
+.ipynb
+.ipynb_checkpoints
+.ipython
+.local
+.mypy_cache

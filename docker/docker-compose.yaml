@@ -1,0 +1,24 @@
+version: '1.0'
+
+services:
+  # TODO: Use postgres/example user/password credentials
+  db:
+    build: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+
+  jupyter:
+    image: jupyter/datascience-notebook
+    network_mode: bridge
+    volumes:
+       - ../dataset:/dataset
+       - ./jupyter:/home/jovyan
+    command: >
+      sh -c "pip install -r /home/jovyan/config/requirements.txt &&
+             jupyter notebook"
+
+    ports:
+      - 8191:8888

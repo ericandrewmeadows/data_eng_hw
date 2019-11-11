@@ -3,3 +3,8 @@ FROM postgres:11.3 AS postgres
 ENV POSTGRES_PASSWORD=password
 
 # COPY init.sql /docker-entrypoint-initdb.d/
+USER postgres
+
+RUN    /etc/init.d/postgresql start
+
+EXPOSE 5432
