@@ -30,10 +30,10 @@ repos:
     hooks:
     -   id: dockerfile_lint
     -   id: markdown-toc
--   repo: https://github.com/pre-commit/mirrors-isort
-    rev: v4.3.21
-    hooks:
-    -   id: isort
+# -   repo: https://github.com/pre-commit/mirrors-isort
+#     rev: v4.3.21
+#     hooks:
+#     -   id: isort
 -   repo: https://github.com/psf/black
     rev: stable
     hooks:

@@ -1,0 +1,5 @@
+DEFAULT_USER = "postgres"
+DEFAULT_PASSWORD = "password"
+DEFAULT_DATABASE = "take_home"
+DEFAULT_SCHEMA = "eric_meadows"
+DEFAULT_HOST = "database"
