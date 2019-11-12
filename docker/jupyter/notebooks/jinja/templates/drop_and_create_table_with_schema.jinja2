@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS {{ postgres_table_name }};
+CREATE TABLE IF NOT EXISTS {{ postgres_table_name }} (
+{%- for col, col_type in schema_map.items() %}
+  {%- if mapping %}
+    {% set rs_type = mapping[col_type|upper] %}
+  {%- else %}
+    {% set rs_type = col_type|upper %}
+  {%- endif -%}
+    {{ col }} {{ rs_type }}{{ "," if not loop.last }}
+{%- endfor %}
+)
+{%- if distkey -%}
+DISTKEY({{ distkey }})
+{%- endif -%}
+
+{%- if sortkeys -%}
+{{ sortkey_type|upper }} SORTKEY({{ sortkeys|join(', ') }})
+{%- endif -%}
+;

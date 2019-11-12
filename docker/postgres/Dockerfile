@@ -1,10 +1,11 @@
 FROM postgres:11.3 AS postgres
 
-ENV POSTGRES_PASSWORD=password
+LABEL Name="hinge_takehome"
+LABEL Version="eric_meadows"
 
-# COPY init.sql /docker-entrypoint-initdb.d/
+
 USER postgres
 
-RUN    /etc/init.d/postgresql start
+RUN /etc/init.d/postgresql start
 
 EXPOSE 5432
