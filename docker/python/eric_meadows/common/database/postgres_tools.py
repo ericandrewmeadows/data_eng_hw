@@ -1,7 +1,7 @@
 import sys
 import traceback
 from io import StringIO
-from typing import Dict, List, TextIO
+from typing import Dict, List
 
 import pandas as pd
 import psycopg2
@@ -11,6 +11,7 @@ from ..common import (
     DEFAULT_DATABASE,
     DEFAULT_HOST,
     DEFAULT_PASSWORD,
+    DEFAULT_POTENTIAL_NULL_COLUMNS,
     DEFAULT_USER,
 )
 from ..data_frame_tools import DataFrameTools
@@ -76,10 +77,13 @@ class PostgresTools(DatabaseTools):
         )
         self._run_query(query)
 
-    def _get_file_buffer_without_null_bytes(self, data_file: str) -> TextIO:
+    def _get_file_buffer_without_null_bytes(
+        self,
+        data_file: str,
+        potential_null_columns: List[str] = DEFAULT_POTENTIAL_NULL_COLUMNS,
+    ):
         writeable_csv_buffer = StringIO()
-        # Circumvent the
-        pd.read_csv(data_file).to_csv(
+        pd.read_csv(data_file).dropna(subset=potential_null_columns).to_csv(
             writeable_csv_buffer, index=False, header=False
         )
         writeable_csv_buffer.seek(0)
